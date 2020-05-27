@@ -35,10 +35,10 @@ def generate_email_addresses(names, domain, email_format):
             name_list = [name_list[0], name_list[1].split('-')[1]]
 
         # create email addresses based on assumed format
-        if email_format == "flast":
+        if email_format == "flast" and name_list[0] != '':
             email = f"{name_list[0][0]}{name_list[1]}@{domain}"
             emails.append(email)
-        elif email_format == "lastf":
+        elif email_format == "lastf" and name_list[0] != '':
             email = f"{name_list[1]}{name_list[0][0]}@{domain}"
             emails.append(email)
         elif email_format == "first.last":
@@ -46,6 +46,9 @@ def generate_email_addresses(names, domain, email_format):
             emails.append(email)
         elif email_format == "last.first":
             email = f"{name_list[1]}.{name_list[0]}@{domain}"
+            emails.append(email)
+        elif email_format == "first":
+            email = f"{name_list[0]}@{domain}"
             emails.append(email)
     return emails
 
@@ -83,7 +86,7 @@ def main():
                         "-f",
                         help = "format for email addresses",
                         type = str,
-                        choices = {"flast", "lastf", "first.last", "last.first"},
+                        choices = {"flast", "lastf", "first.last", "last.first", "first"},
                         default = "flast")
     parser.add_argument("--outfile",
                         "-o",

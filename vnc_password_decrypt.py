@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 import argparse
 from des import DesKey
+import sys
 
 
 def decrypt_ultravnc(password):
@@ -8,9 +9,18 @@ def decrypt_ultravnc(password):
     des = DesKey(key)
     input_password = password
 
-    if len(input_password) == 16:
-        clear=des.decrypt(bytes.fromhex(input_password))
+    if len(input_password) % 8 == 0:
+        clear=des.decrypt(bytes.fromhex(password))
+        #print(bytes.fromhex(password))
+        #print(clear)
         return clear.decode('utf-8')
+    else:
+        padding = len(input_password) % 8
+        padded_password = input_password + ('00' * padding)
+        clear=des.decrypt(bytes.fromhex(padded_password))
+        print(clear)
+        sys.exit()
+        return clear.decode('utf-8')    
     
 
 def main():
@@ -27,7 +37,7 @@ def main():
     if args.type == "ultravnc":
         clear = decrypt_ultravnc(args.password)
     else:
-        print(f"[!] Password decryption for '{args.type}' not implemented")
+        print(f"[!] Password decryption for {args.type} not implemented")
         clear = None
 
     if clear != None:
