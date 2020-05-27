@@ -2,7 +2,7 @@
 
 # install additional packages
 sudo apt-get update
-sudo apt-get install ftp
+sudo apt-get install ftp nfs-common
 
 # download tools from github
 sudo git clone https://github.com/magnumripper/JohnTheRipper.git /opt/john/
