@@ -30,4 +30,4 @@ export PATH="$PATH:/usr/share/doc/python-impacket/examples/"
 echo "export PATH=\"\$PATH:/usr/share/doc/python-impacket/examples/\"" >> ~/.bashrc
 
 # create mount point for share
-mkdir /mnt/shared
+sudo mkdir /mnt/shared
